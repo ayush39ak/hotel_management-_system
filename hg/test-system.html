@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System - Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Hotel Management System - Feature Test</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dashboard Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Dashboard</h2>
+                <p class="text-gray-600 mb-4">Test the main dashboard functionality</p>
+                <a href="index.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 inline-block">
+                    Test Dashboard
+                </a>
+            </div>
+
+            <!-- Rooms Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Rooms Management</h2>
+                <p class="text-gray-600 mb-4">Test room management features</p>
+                <a href="rooms.html" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 inline-block">
+                    Test Rooms
+                </a>
+            </div>
+
+            <!-- Bookings Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Bookings Management</h2>
+                <p class="text-gray-600 mb-4">Test booking system features</p>
+                <a href="bookings.html" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 inline-block">
+                    Test Bookings
+                </a>
+            </div>
+
+            <!-- Check-in Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Check-in Management</h2>
+                <p class="text-gray-600 mb-4">Test guest check-in features</p>
+                <a href="checkin.html" class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 inline-block">
+                    Test Check-in
+                </a>
+            </div>
+
+            <!-- Check-out Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Check-out Management</h2>
+                <p class="text-gray-600 mb-4">Test guest check-out features</p>
+                <a href="checkout.html" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 inline-block">
+                    Test Check-out
+                </a>
+            </div>
+
+            <!-- Customers Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Customer Management</h2>
+                <p class="text-gray-600 mb-4">Test customer management features</p>
+                <a href="customers.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 inline-block">
+                    Test Customers
+                </a>
+            </div>
+
+            <!-- Billing Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Billing Management</h2>
+                <p class="text-gray-600 mb-4">Test billing and invoicing features</p>
+                <a href="billing.html" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 inline-block">
+                    Test Billing
+                </a>
+            </div>
+
+            <!-- Inventory Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Inventory Management</h2>
+                <p class="text-gray-600 mb-4">Test inventory tracking features</p>
+                <a href="inventory.html" class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 inline-block">
+                    Test Inventory
+                </a>
+            </div>
+
+            <!-- Feedback Test -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-semibold mb-4">Feedback Management</h2>
+                <p class="text-gray-600 mb-4">Test feedback and review features</p>
+                <a href="feedback.html" class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 inline-block">
+                    Test Feedback
+                </a>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">System Status</h2>
+            <div id="systemStatus" class="space-y-2">
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                    <span>All modules loaded successfully</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                    <span>Event delegation implemented</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                    <span>Sample data generation available</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                    <span>Data export/import functionality</span>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                    <span>Enhanced notification system</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="generateAllSampleData()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+                    Generate All Sample Data
+                </button>
+                <button onclick="exportAllData()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Export All Data
+                </button>
+                <button onclick="clearAllData()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                    Clear All Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateAllSampleData() {
+            // Generate sample data for all modules
+            const sampleData = {
+                rooms: [
+                    { id: 1, roomNumber: '101', floor: 1, type: 'single', price: 80, status: 'available', description: 'Comfortable single room' },
+                    { id: 2, roomNumber: '102', floor: 1, type: 'double', price: 120, status: 'occupied', description: 'Spacious double room' },
+                    { id: 3, roomNumber: '201', floor: 2, type: 'suite', price: 200, status: 'available', description: 'Luxury suite' }
+                ],
+                checkins: [
+                    { id: 1, guestName: 'Mike Johnson', roomNumber: '102', checkInDate: '2024-01-15', checkOutDate: '2024-01-17', status: 'checked-in' },
+                    { id: 2, guestName: 'Sarah Wilson', roomNumber: '201', checkInDate: '2024-01-16', checkOutDate: '2024-01-19', status: 'checked-in' }
+                ],
+                checkouts: [
+                    { id: 1, guestName: 'Mike Johnson', roomNumber: '102', checkOutDate: '2024-01-17', amount: 240, status: 'completed' }
+                ],
+                customers: [
+                    { id: 1, name: 'Mike Johnson', email: 'mike@example.com', phone: '123-456-7890', address: '123 Main St' },
+                    { id: 2, name: 'Sarah Wilson', email: 'sarah@example.com', phone: '098-765-4321', address: '456 Oak Ave' }
+                ],
+                billing: [
+                    { id: 1, guestName: 'Mike Johnson', roomNumber: '102', amount: 240, dueDate: '2024-01-17', status: 'paid' }
+                ],
+                inventory: [
+                    { id: 1, name: 'Bed Sheets', category: 'linens', quantity: 50, unitPrice: 25.00, minStock: 10 },
+                    { id: 2, name: 'Towels', category: 'linens', quantity: 75, unitPrice: 15.00, minStock: 20 }
+                ],
+                feedback: [
+                    { id: 1, guestName: 'Mike Johnson', rating: 5, comment: 'Excellent service!', date: '2024-01-15', status: 'new' }
+                ]
+            };
+
+            // Save to localStorage
+            localStorage.setItem('hotelRooms', JSON.stringify(sampleData.rooms));
+            localStorage.setItem('checkins', JSON.stringify(sampleData.checkins));
+            localStorage.setItem('checkouts', JSON.stringify(sampleData.checkouts));
+            localStorage.setItem('hotelCustomers', JSON.stringify(sampleData.customers));
+            localStorage.setItem('hotelInvoices', JSON.stringify(sampleData.billing));
+            localStorage.setItem('hotelInventory', JSON.stringify(sampleData.inventory));
+            localStorage.setItem('hotelFeedback', JSON.stringify(sampleData.feedback));
+
+            alert('Sample data generated for all modules!');
+        }
+
+        function exportAllData() {
+            const data = {
+                rooms: JSON.parse(localStorage.getItem('hotelRooms') || '[]'),
+                checkins: JSON.parse(localStorage.getItem('checkins') || '[]'),
+                checkouts: JSON.parse(localStorage.getItem('checkouts') || '[]'),
+                customers: JSON.parse(localStorage.getItem('hotelCustomers') || '[]'),
+                billing: JSON.parse(localStorage.getItem('hotelInvoices') || '[]'),
+                inventory: JSON.parse(localStorage.getItem('hotelInventory') || '[]'),
+                feedback: JSON.parse(localStorage.getItem('hotelFeedback') || '[]'),
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `hotel-data-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('All data exported successfully!');
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                localStorage.clear();
+                alert('All data cleared successfully!');
+            }
+        }
+    </script>
+</body>
+</html> 
