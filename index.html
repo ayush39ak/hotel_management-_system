@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -299,7 +298,7 @@
                 </svg>
                 <div>
                     <p class="text-sm text-slate-500">Today's Revenue</p>
-                    <p class="text-2xl font-bold text-slate-900" id="todayRevenue">$0</p>
+                    <p class="text-2xl font-bold text-slate-900" id="todayRevenue">₹0</p>
                 </div>
             </article>
         </section>
@@ -430,11 +429,11 @@
                 <div id="financialSummary" class="space-y-3">
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-slate-600">This Month Revenue:</span>
-                        <span class="font-semibold text-green-600" id="monthlyRevenue">$0</span>
+                        <span class="font-semibold text-green-600" id="monthlyRevenue">₹0</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-slate-600">Average Room Rate:</span>
-                        <span class="font-semibold text-blue-600" id="avgRoomRate">$0</span>
+                        <span class="font-semibold text-blue-600" id="avgRoomRate">₹0</span>
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-slate-600">Occupancy Rate:</span>
@@ -442,7 +441,7 @@
                     </div>
                     <div class="flex justify-between items-center">
                         <span class="text-sm text-slate-600">Additional Charges:</span>
-                        <span class="font-semibold text-purple-600" id="additionalChargesTotal">$0</span>
+                        <span class="font-semibold text-purple-600" id="additionalChargesTotal">₹0</span>
                     </div>
                 </div>
             </section>
@@ -646,7 +645,7 @@
                 document.getElementById('totalBookingsCount').textContent = bookings.length;
                 document.getElementById('checkedOutTodayCount').textContent = checkedOutToday;
                 document.getElementById('walkInGuestsCount').textContent = walkInGuests;
-                document.getElementById('todayRevenue').textContent = `$${todayRevenue.toFixed(2)}`;
+                document.getElementById('todayRevenue').textContent = `₹${todayRevenue.toFixed(2)}`;
 
                 // Update booking status breakdown
                 document.getElementById('confirmedBookingsCount').textContent = confirmedBookings;
@@ -661,10 +660,10 @@
                 document.getElementById('avgStayDuration').textContent = `${avgStayDuration} nights`;
 
                 // Update financial summary
-                document.getElementById('monthlyRevenue').textContent = `$${monthlyRevenue.toFixed(2)}`;
-                document.getElementById('avgRoomRate').textContent = `$${avgRoomRate.toFixed(2)}`;
+                document.getElementById('monthlyRevenue').textContent = `₹${monthlyRevenue.toFixed(2)}`;
+                document.getElementById('avgRoomRate').textContent = `₹${avgRoomRate.toFixed(2)}`;
                 document.getElementById('occupancyRate').textContent = `${occupancyRate.toFixed(1)}%`;
-                document.getElementById('additionalChargesTotal').textContent = `$${additionalChargesTotal.toFixed(2)}`;
+                document.getElementById('additionalChargesTotal').textContent = `₹${additionalChargesTotal.toFixed(2)}`;
 
                 // Update recent check-ins
                 const recentCheckinsContainer = document.getElementById('recentCheckins');
@@ -896,6 +895,60 @@
         document.getElementById('nav-feedback').addEventListener('click', () => {
             window.location.href = 'feedback.html';
         });
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveBooking();
+        });
+
+        function saveBooking() {
+            const bookings = loadBookings();
+
+            // Collect form data
+            const booking = {
+                id: Date.now(),
+                guestName: document.getElementById('guestName').value,
+                guestEmail: document.getElementById('guestEmail').value,
+                guestPhone: document.getElementById('guestPhone').value,
+                idType: document.getElementById('idType').value,
+                idNumber: document.getElementById('idNumber').value,
+                roomNumber: document.getElementById('roomNumber').value,
+                bookingType: document.getElementById('bookingType').value,
+                checkInDate: document.getElementById('checkInDate').value,
+                checkOutDate: document.getElementById('checkOutDate').value,
+                numGuests: document.getElementById('numGuests').value,
+                status: document.getElementById('bookingStatus').value,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                paymentStatus: document.getElementById('paymentStatus').value,
+                discount: document.getElementById('discount').value,
+                depositAmount: document.getElementById('depositAmount').value,
+                specialRequests: document.getElementById('specialRequests').value,
+                internalNotes: document.getElementById('internalNotes').value,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            // Add the new booking
+            bookings.push(booking);
+
+            saveBookings(bookings);
+            renderBookings(bookings);
+            hideModal();
+        }
+
+        (function removeDuplicateInvoices() {
+            let invoices = JSON.parse(localStorage.getItem('hotelInvoices')) || [];
+            const unique = [];
+            const seen = new Set();
+            for (const inv of invoices) {
+                if (!seen.has(inv.id)) {
+                    unique.push(inv);
+                    seen.add(inv.id);
+                }
+            }
+            localStorage.setItem('hotelInvoices', JSON.stringify(unique));
+            alert('Duplicate invoices removed! Refresh your billing page.');
+        })();
     </script>
 
 </body>
