@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hotel Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for sidebar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(100, 116, 139, 0.5);
+            border-radius: 3px;
+        }
+
+        /* Icon overlays for accessibility and alignment */
+        .icon-style {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+        }
+
+        .status-confirmed {
+            background-color: #dcfce7 !important;
+            color: #166534 !important;
+        }
+    </style>
+</head>
+
+<body class="h-screen flex bg-gray-100 font-sans select-none">
+
+    <!-- Sidebar -->
+    <aside
+        class="flex flex-col bg-slate-900 text-slate-100 w-64 min-w-[16rem] shadow-md overflow-y-auto"
+        aria-label="Sidebar Navigation">
+        <div class="flex items-center gap-2 px-6 py-5 border-b border-slate-700">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2 2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span class="text-lg font-semibold select-text">Hotel Admin</span>
+        </div>
+        <nav class="flex flex-col mt-4 text-sm font-medium" role="navigation" aria-label="Main Navigation">
+            <button
+                class="w-full flex items-center gap-3 px-6 py-3 bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                aria-current="page" id="nav-dashboard">
+                <svg class="icon-style text-slate-300" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v6l4 2"></path>
+                </svg>
+                Dashboard
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-rooms">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M3 7h18M5 7v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7"></path>
+                    <line x1="10" y1="10" x2="14" y2="10"></line>
+                    <line x1="10" y1="14" x2="14" y2="14"></line>
+                </svg>
+                Rooms
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-bookings">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Bookings
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-checkin">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M9 12h6"></path>
+                    <path d="M9 16h6"></path>
+                    <circle cx="12" cy="8" r="3"></circle>
+                </svg>
+                New Check-In
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-checkout">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M15 12H9"></path>
+                    <path d="M15 16H9"></path>
+                    <circle cx="12" cy="16" r="3"></circle>
+                </svg>
+                Guest Check-Out
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-customers">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M7 21v-2a4 4 0 0 1 3-3.87"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Customers
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-billing">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M12 1v22"></path>
+                    <circle cx="12" cy="11" r="4"></circle>
+                    <path d="M18 2v7"></path>
+                    <path d="M6 2v7"></path>
+                </svg>
+                Billing
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-inventory">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Inventory
+            </button>
+            <button class="w-full flex items-center gap-3 px-6 py-3 hover:bg-slate-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-400"
+                id="nav-feedback">
+                <svg class="icon-style" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <polygon points="12 2 15 8.5 22 9.2 17 14.3 18.5 21.5 12 18 5.5 21.5 7 14.3 2 9.2 9 8.5"></polygon>
+                </svg>
+                Feedback
+            </button>
+        </nav>
+        <button onclick="logout()" class="w-full flex items-center gap-3 px-6 py-3 bg-red-600 hover:bg-red-700 rounded-r-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-400 mt-4 mb-2">
+            <svg class="icon-style text-white" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M17 16l4-4m0 0l-4-4m4 4H7"></path>
+                <path d="M3 12h4"></path>
+            </svg>
+            Logout
+        </button>
+        <footer class="mt-auto px-6 py-3 text-xs border-t border-slate-700 text-slate-400">
+            User ID:2442
+        </footer>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-8 overflow-y-auto" role="main" aria-label="Dashboard Content">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-2xl font-semibold text-slate-900">Dashboard</h1>
+            <div class="flex space-x-3">
+                <button onclick="loadDashboard()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Refresh
+                </button>
+                <button onclick="exportData()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                    Export Data
+                </button>
+                <button onclick="importData()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                    Import Data
+                </button>
+                <button onclick="resetData()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                    Reset Data
+                </button>
+            </div>
+        </div>
+
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Available Rooms -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-indigo-300 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M3 12h18"></path>
+                    <path d="M7 12v4a3 3 0 0 0 3 3h4a3 3 0 0 0 3-3v-4"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Available Rooms</p>
+                    <p class="text-2xl font-bold text-slate-900" id="availableRoomsCount">0</p>
+                </div>
+            </article>
+
+            <!-- Occupied Rooms -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-red-400 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-red-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M3 7h18"></path>
+                    <path d="M5 7v10a2 2 0 0 0 2 2h8"></path>
+                    <circle cx="16" cy="16" r="2"></circle>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Occupied Rooms</p>
+                    <p class="text-2xl font-bold text-slate-900" id="occupiedRoomsCount">0</p>
+                </div>
+            </article>
+
+            <!-- Checked-in Guests -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-blue-500 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-blue-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M17 21v-2a4 4 0 0 0-8 0v2"></path>
+                    <path d="M12 8v3l3 3"></path>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Checked-in Guests</p>
+                    <p class="text-2xl font-bold text-slate-900" id="checkedInCount">0</p>
+                </div>
+            </article>
+
+            <!-- Needs Cleaning -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-yellow-500 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-yellow-500" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M4 21h16v-2H4v2z"></path>
+                    <path d="M3 10l1-2 3 4 11-11"></path>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Needs Cleaning</p>
+                    <p class="text-2xl font-bold text-slate-900" id="needsCleaningCount">0</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- Enhanced Statistics Section -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Total Bookings -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-purple-400 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-purple-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Total Bookings</p>
+                    <p class="text-2xl font-bold text-slate-900" id="totalBookingsCount">0</p>
+                </div>
+            </article>
+
+            <!-- Checked-out Today -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-orange-400 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M15 12H9"></path>
+                    <path d="M15 16H9"></path>
+                    <circle cx="12" cy="16" r="3"></circle>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Checked-out Today</p>
+                    <p class="text-2xl font-bold text-slate-900" id="checkedOutTodayCount">0</p>
+                </div>
+            </article>
+
+            <!-- Walk-in Guests -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-pink-400 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-pink-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M7 21v-2a4 4 0 0 1 3-3.87"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                    <path d="M12 8v3l3 3"></path>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Walk-in Guests</p>
+                    <p class="text-2xl font-bold text-slate-900" id="walkInGuestsCount">0</p>
+                </div>
+            </article>
+
+            <!-- Total Revenue -->
+            <article
+                class="bg-white rounded-lg shadow-md p-5 flex items-center gap-4 border border-transparent hover:border-green-400 transition-all">
+                <svg class="w-8 h-8 flex-shrink-0 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"
+                    focusable="false">
+                    <path d="M12 1v22"></path>
+                    <circle cx="12" cy="11" r="4"></circle>
+                    <path d="M18 2v7"></path>
+                    <path d="M6 2v7"></path>
+                </svg>
+                <div>
+                    <p class="text-sm text-slate-500">Today's Revenue</p>
+                    <p class="text-2xl font-bold text-slate-900" id="todayRevenue">₹0</p>
+                </div>
+            </article>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Upcoming Bookings -->
+            <section
+                class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-indigo-300 transition-all min-h-[130px]">
+                <h2 class="text-lg font-semibold text-slate-900 mb-2">Upcoming Bookings</h2>
+                <p class="text-slate-500" id="upcomingBookingsMessage">No upcoming bookings.</p>
+            </section>
+
+            <!-- Recent Feedback -->
+            <section
+                class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-indigo-300 transition-all min-h-[130px]">
+                <h2 class="text-lg font-semibold text-slate-900 mb-2">Recent Feedback</h2>
+                <p class="text-slate-500" id="recentFeedbackMessage">No recent feedback.</p>
+            </section>
+        </section>
+
+        <!-- Enhanced Activity Sections -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- Recent Check-ins -->
+            <section class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-blue-300 transition-all">
+                <h2 class="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 16h6"></path>
+                        <circle cx="12" cy="8" r="3"></circle>
+                    </svg>
+                    Recent Check-ins
+                </h2>
+                <div id="recentCheckins" class="space-y-3">
+                    <p class="text-slate-500">No recent check-ins.</p>
+                </div>
+            </section>
+
+            <!-- Recent Check-outs -->
+            <section class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-orange-300 transition-all">
+                <h2 class="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 16H9"></path>
+                        <circle cx="12" cy="16" r="3"></circle>
+                    </svg>
+                    Recent Check-outs
+                </h2>
+                <div id="recentCheckouts" class="space-y-3">
+                    <p class="text-slate-500">No recent check-outs.</p>
+                </div>
+            </section>
+
+            <!-- Booking Status Breakdown -->
+            <section class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-purple-300 transition-all">
+                <h2 class="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    Booking Status
+                </h2>
+                <div id="bookingStatusBreakdown" class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Confirmed:</span>
+                        <span class="font-semibold text-blue-600" id="confirmedBookingsCount">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Checked-in:</span>
+                        <span class="font-semibold text-green-600" id="bookingsCheckedInCount">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Checked-out:</span>
+                        <span class="font-semibold text-orange-600" id="bookingsCheckedOutCount">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Walk-in:</span>
+                        <span class="font-semibold text-pink-600" id="walkInBookingsCount">0</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Customer Insights and Financial Summary -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Customer Insights -->
+            <section class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-indigo-300 transition-all">
+                <h2 class="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M7 21v-2a4 4 0 0 1 3-3.87"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Customer Insights
+                </h2>
+                <div id="customerInsights" class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Total Customers:</span>
+                        <span class="font-semibold text-indigo-600" id="totalCustomersCount">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">New This Month:</span>
+                        <span class="font-semibold text-green-600" id="newCustomersCount">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Repeat Guests:</span>
+                        <span class="font-semibold text-blue-600" id="repeatGuestsCount">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Avg. Stay Duration:</span>
+                        <span class="font-semibold text-purple-600" id="avgStayDuration">0 nights</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Summary -->
+            <section class="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-green-300 transition-all">
+                <h2 class="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 1v22"></path>
+                        <circle cx="12" cy="11" r="4"></circle>
+                        <path d="M18 2v7"></path>
+                        <path d="M6 2v7"></path>
+                    </svg>
+                    Financial Summary
+                </h2>
+                <div id="financialSummary" class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">This Month Revenue:</span>
+                        <span class="font-semibold text-green-600" id="monthlyRevenue">₹0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Average Room Rate:</span>
+                        <span class="font-semibold text-blue-600" id="avgRoomRate">₹0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Occupancy Rate:</span>
+                        <span class="font-semibold text-orange-600" id="occupancyRate">0%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-600">Additional Charges:</span>
+                        <span class="font-semibold text-purple-600" id="additionalChargesTotal">₹0</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <!-- Notification System -->
+    <div id="notification" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span id="notificationMessage"></span>
+        </div>
+    </div>
+
+    <script>
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Dashboard data loading from localStorage
+
+        // Elements references
+        const availableRoomsCount = document.getElementById("availableRoomsCount");
+        const occupiedRoomsCount = document.getElementById("occupiedRoomsCount");
+        const checkedInCount = document.getElementById("checkedInCount");
+        const needsCleaningCount = document.getElementById("needsCleaningCount");
+        const upcomingBookingsMessage = document.getElementById("upcomingBookingsMessage");
+        const recentFeedbackMessage = document.getElementById("recentFeedbackMessage");
+
+        // Load dashboard data from localStorage
+        function loadDashboard() {
+            try {
+                // Load rooms data
+                const savedRooms = localStorage.getItem('hotelRooms');
+                let rooms = [];
+                if (savedRooms) {
+                    rooms = JSON.parse(savedRooms);
+                }
+
+                // Count rooms by status
+                const availableRooms = rooms.filter(room => room.status === 'available').length;
+                const occupiedRooms = rooms.filter(room => room.status === 'occupied').length;
+                const needsCleaning = rooms.filter(room => room.status === 'cleaning').length;
+
+                // Load check-ins data
+                const savedCheckins = localStorage.getItem('checkins');
+                let checkins = [];
+                if (savedCheckins) {
+                    checkins = JSON.parse(savedCheckins);
+                }
+
+                // Load checkouts data
+                const savedCheckouts = localStorage.getItem('checkouts');
+                let checkouts = [];
+                if (savedCheckouts) {
+                    checkouts = JSON.parse(savedCheckouts);
+                }
+
+                // Load bookings data
+                const savedBookings = localStorage.getItem('hotelBookings');
+                let bookings = [];
+                if (savedBookings) {
+                    bookings = JSON.parse(savedBookings);
+                }
+
+                // Load customers data
+                const savedCustomers = localStorage.getItem('hotelCustomers');
+                let customers = [];
+                if (savedCustomers) {
+                    customers = JSON.parse(savedCustomers);
+                }
+
+                // Load invoices data
+                const savedInvoices = localStorage.getItem('hotelInvoices');
+                let invoices = [];
+                if (savedInvoices) {
+                    invoices = JSON.parse(savedInvoices);
+                }
+
+                // Calculate comprehensive statistics
+                const today = new Date();
+                const todayString = today.toISOString().split('T')[0];
+                const thisMonth = today.getMonth();
+                const thisYear = today.getFullYear();
+
+                // Count checked-in guests (from checkins, not bookings)
+                const checkedInGuests = checkins.filter(checkin => checkin.status === 'checked-in').length;
+
+                // Count checked-out today
+                const checkedOutToday = checkins.filter(checkin => 
+                    checkin.status === 'checked-out' && 
+                    checkin.checkoutDate === todayString
+                ).length;
+
+                // Count walk-in guests
+                const walkInGuests = bookings.filter(booking => 
+                    booking.bookingType === 'walk_in'
+                ).length;
+
+                // Calculate today's revenue
+                const todayRevenue = checkouts.filter(checkout => 
+                    checkout.checkoutTime && 
+                    checkout.checkoutTime.startsWith(todayString)
+                ).reduce((sum, checkout) => sum + (checkout.totalAmount || 0), 0);
+
+                // Calculate monthly revenue
+                const monthlyRevenue = checkouts.filter(checkout => {
+                    if (!checkout.checkoutTime) return false;
+                    const checkoutDate = new Date(checkout.checkoutTime);
+                    return checkoutDate.getMonth() === thisMonth && checkoutDate.getFullYear() === thisYear;
+                }).reduce((sum, checkout) => sum + (checkout.totalAmount || 0), 0);
+
+                // Calculate average room rate
+                const totalRoomRevenue = checkouts.reduce((sum, checkout) => sum + (checkout.totalAmount || 0), 0);
+                const totalCheckouts = checkouts.length;
+                const avgRoomRate = totalCheckouts > 0 ? totalRoomRevenue / totalCheckouts : 0;
+
+                // Calculate occupancy rate
+                const totalRooms = rooms.length;
+                const occupancyRate = totalRooms > 0 ? (occupiedRooms / totalRooms) * 100 : 0;
+
+                // Calculate additional charges total
+                const additionalChargesTotal = checkouts.reduce((sum, checkout) => {
+                    const additionalCharges = checkout.additionalCharges || {};
+                    return sum + (additionalCharges.total || 0);
+                }, 0);
+
+                // Get recent check-ins (last 5)
+                const recentCheckins = checkins
+                    .filter(checkin => checkin.status === 'checked-in')
+                    .sort((a, b) => new Date(b.checkInTime) - new Date(a.checkInTime))
+                    .slice(0, 5);
+
+                // Get recent check-outs (last 5)
+                const recentCheckouts = checkins
+                    .filter(checkin => checkin.status === 'checked-out')
+                    .sort((a, b) => new Date(b.checkoutTime) - new Date(a.checkoutTime))
+                    .slice(0, 5);
+
+                // Calculate booking status breakdown
+                const confirmedBookings = bookings.filter(b => b.status === 'confirmed').length;
+                const bookingsCheckedIn = bookings.filter(b => b.status === 'checked-in').length;
+                const bookingsCheckedOut = bookings.filter(b => b.status === 'checked-out').length;
+                const walkInBookings = bookings.filter(b => b.bookingType === 'walk_in').length;
+
+                // Calculate customer insights
+                const totalCustomers = customers.length;
+                const newCustomersThisMonth = customers.filter(customer => {
+                    const customerDate = new Date(customer.createdAt || customer.registrationDate);
+                    return customerDate.getMonth() === thisMonth && customerDate.getFullYear() === thisYear;
+                }).length;
+
+                // Calculate repeat guests (customers with multiple check-ins)
+                const customerCheckinCounts = {};
+                checkins.forEach(checkin => {
+                    const email = checkin.guestEmail;
+                    if (email) {
+                        customerCheckinCounts[email] = (customerCheckinCounts[email] || 0) + 1;
+                    }
+                });
+                const repeatGuests = Object.values(customerCheckinCounts).filter(count => count > 1).length;
+
+                // Calculate average stay duration
+                const totalNights = checkins.reduce((sum, checkin) => {
+                    const checkIn = new Date(checkin.checkInDate);
+                    const checkOut = new Date(checkin.checkOutDate);
+                    const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+                    return sum + nights;
+                }, 0);
+                const avgStayDuration = checkins.length > 0 ? Math.round(totalNights / checkins.length) : 0;
+
+                // Get upcoming bookings (next 7 days)
+                const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+                const upcomingBookings = bookings.filter(booking => {
+                    try {
+                        const checkInDate = new Date(booking.checkInDate);
+                        return checkInDate >= today && checkInDate <= nextWeek && booking.status === 'confirmed';
+                    } catch (error) {
+                        return false;
+                    }
+                }).slice(0, 3);
+
+                // Load feedback data
+                const savedFeedback = localStorage.getItem('hotelFeedback');
+                let feedback = [];
+                if (savedFeedback) {
+                    feedback = JSON.parse(savedFeedback);
+                }
+
+                // Get recent feedback (last 3)
+                const recentFeedback = feedback
+                    .filter(f => f.response === null) // Only unresponded feedback
+                    .slice(0, 3);
+
+                // Update dashboard counts
+                availableRoomsCount.textContent = availableRooms;
+                occupiedRoomsCount.textContent = occupiedRooms;
+                checkedInCount.textContent = checkedInGuests;
+                needsCleaningCount.textContent = needsCleaning;
+
+                // Update enhanced statistics
+                document.getElementById('totalBookingsCount').textContent = bookings.length;
+                document.getElementById('checkedOutTodayCount').textContent = checkedOutToday;
+                document.getElementById('walkInGuestsCount').textContent = walkInGuests;
+                document.getElementById('todayRevenue').textContent = `₹${todayRevenue.toFixed(2)}`;
+
+                // Update booking status breakdown
+                document.getElementById('confirmedBookingsCount').textContent = confirmedBookings;
+                document.getElementById('bookingsCheckedInCount').textContent = bookingsCheckedIn;
+                document.getElementById('bookingsCheckedOutCount').textContent = bookingsCheckedOut;
+                document.getElementById('walkInBookingsCount').textContent = walkInBookings;
+
+                // Update customer insights
+                document.getElementById('totalCustomersCount').textContent = totalCustomers;
+                document.getElementById('newCustomersCount').textContent = newCustomersThisMonth;
+                document.getElementById('repeatGuestsCount').textContent = repeatGuests;
+                document.getElementById('avgStayDuration').textContent = `${avgStayDuration} nights`;
+
+                // Update financial summary
+                document.getElementById('monthlyRevenue').textContent = `₹${monthlyRevenue.toFixed(2)}`;
+                document.getElementById('avgRoomRate').textContent = `₹${avgRoomRate.toFixed(2)}`;
+                document.getElementById('occupancyRate').textContent = `${occupancyRate.toFixed(1)}%`;
+                document.getElementById('additionalChargesTotal').textContent = `₹${additionalChargesTotal.toFixed(2)}`;
+
+                // Update recent check-ins
+                const recentCheckinsContainer = document.getElementById('recentCheckins');
+                if (recentCheckins.length === 0) {
+                    recentCheckinsContainer.innerHTML = '<p class="text-slate-500">No recent check-ins.</p>';
+                } else {
+                    recentCheckinsContainer.innerHTML = recentCheckins.map(checkin => `
+                        <div class="flex justify-between items-center text-sm">
+                            <div>
+                                <span class="font-medium">${checkin.guestName}</span>
+                                <span class="text-slate-500"> - Room ${checkin.roomNumber}</span>
+                            </div>
+                            <span class="text-slate-500">${formatTime(checkin.checkInTime)}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // Update recent check-outs
+                const recentCheckoutsContainer = document.getElementById('recentCheckouts');
+                if (recentCheckouts.length === 0) {
+                    recentCheckoutsContainer.innerHTML = '<p class="text-slate-500">No recent check-outs.</p>';
+                } else {
+                    recentCheckoutsContainer.innerHTML = recentCheckouts.map(checkin => `
+                        <div class="flex justify-between items-center text-sm">
+                            <div>
+                                <span class="font-medium">${checkin.guestName}</span>
+                                <span class="text-slate-500"> - Room ${checkin.roomNumber}</span>
+                            </div>
+                            <span class="text-slate-500">${formatTime(checkin.checkoutTime)}</span>
+                        </div>
+                    `).join('');
+                }
+
+                // Update upcoming bookings
+                if (upcomingBookings.length === 0) {
+                    upcomingBookingsMessage.textContent = "No upcoming bookings.";
+                } else {
+                    const ul = document.createElement("ul");
+                    ul.className = "list-disc list-inside text-slate-700";
+
+                    upcomingBookings.forEach(b => {
+                        const li = document.createElement("li");
+                        li.textContent = `${b.guestName || 'Unknown'} - Room ${b.roomNumber || 'N/A'} on ${formatDate(b.checkInDate)}`;
+                        ul.appendChild(li);
+                    });
+
+                    upcomingBookingsMessage.textContent = "";
+                    upcomingBookingsMessage.appendChild(ul);
+                }
+
+                // Update recent feedback
+                if (recentFeedback.length === 0) {
+                    recentFeedbackMessage.textContent = "No recent feedback.";
+                } else {
+                    const ul = document.createElement("ul");
+                    ul.className = "list-disc list-inside text-slate-700";
+
+                    recentFeedback.forEach(f => {
+                        const li = document.createElement("li");
+                        const comment = f.comment || '';
+                        li.textContent = `"${comment.substring(0, 50)}${comment.length > 50 ? '...' : ''}" - ${f.guestName || 'Anonymous'}`;
+                        ul.appendChild(li);
+                    });
+
+                    recentFeedbackMessage.textContent = "";
+                    recentFeedbackMessage.appendChild(ul);
+                }
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                showNotification('Error loading dashboard data', 'error');
+            }
+        }
+
+        // Helper function to format dates
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        // Helper function to format times
+        function formatTime(timeString) {
+            if (!timeString) return 'N/A';
+            const date = new Date(timeString);
+            return date.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notificationMessage');
+            
+            messageEl.textContent = message;
+            
+            // Set color based on type
+            notification.className = `fixed top-4 right-4 text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50 ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 
+                type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
+            }`;
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+            }, 3000);
+        }
+
+        // Data export function
+        function exportData() {
+            const data = {
+                rooms: JSON.parse(localStorage.getItem('hotelRooms') || '[]'),
+                bookings: JSON.parse(localStorage.getItem('bookings') || '[]'),
+                checkins: JSON.parse(localStorage.getItem('checkins') || '[]'),
+                checkouts: JSON.parse(localStorage.getItem('checkouts') || '[]'),
+                customers: JSON.parse(localStorage.getItem('hotelCustomers') || '[]'),
+                billing: JSON.parse(localStorage.getItem('hotelInvoices') || '[]'),
+                inventory: JSON.parse(localStorage.getItem('hotelInventory') || '[]'),
+                feedback: JSON.parse(localStorage.getItem('hotelFeedback') || '[]'),
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `hotel-data-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Data exported successfully!');
+        }
+
+        // Data import function
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const data = JSON.parse(e.target.result);
+                            
+                            if (data.rooms) localStorage.setItem('hotelRooms', JSON.stringify(data.rooms));
+                            if (data.bookings) localStorage.setItem('bookings', JSON.stringify(data.bookings));
+                            if (data.checkins) localStorage.setItem('checkins', JSON.stringify(data.checkins));
+                            if (data.checkouts) localStorage.setItem('checkouts', JSON.stringify(data.checkouts));
+                            if (data.customers) localStorage.setItem('hotelCustomers', JSON.stringify(data.customers));
+                            if (data.billing) localStorage.setItem('hotelInvoices', JSON.stringify(data.billing));
+                            if (data.inventory) localStorage.setItem('hotelInventory', JSON.stringify(data.inventory));
+                            if (data.feedback) localStorage.setItem('hotelFeedback', JSON.stringify(data.feedback));
+                            
+                            showNotification('Data imported successfully!');
+                            loadDashboard(); // Refresh dashboard
+                        } catch (error) {
+                            showNotification('Error importing data. Please check file format.', 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        // Reset data function
+        function resetData() {
+            if (confirm('Are you sure you want to reset all data? This action cannot be undone.')) {
+                localStorage.clear();
+                showNotification('Data reset successfully!');
+                loadDashboard();
+            }
+        }
+
+        // Initialize dashboard
+        loadDashboard();
+
+        // Auto-refresh dashboard every 30 seconds
+        setInterval(loadDashboard, 30000);
+
+        // Navigation functionality
+        document.getElementById('nav-dashboard').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('nav-rooms').addEventListener('click', () => {
+            window.location.href = 'rooms.html';
+        });
+
+        document.getElementById('nav-bookings').addEventListener('click', () => {
+            window.location.href = 'bookings.html';
+        });
+
+        document.getElementById('nav-checkin').addEventListener('click', () => {
+            window.location.href = 'checkin.html';
+        });
+
+        document.getElementById('nav-checkout').addEventListener('click', () => {
+            window.location.href = 'checkout.html';
+        });
+
+        document.getElementById('nav-customers').addEventListener('click', () => {
+            window.location.href = 'customers.html';
+        });
+
+        document.getElementById('nav-billing').addEventListener('click', () => {
+            window.location.href = 'billing.html';
+        });
+
+        document.getElementById('nav-inventory').addEventListener('click', () => {
+            window.location.href = 'inventory.html';
+        });
+
+        document.getElementById('nav-feedback').addEventListener('click', () => {
+            window.location.href = 'feedback.html';
+        });
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveBooking();
+        });
+
+        function saveBooking() {
+            const bookings = loadBookings();
+
+            // Collect form data
+            const booking = {
+                id: Date.now(),
+                guestName: document.getElementById('guestName').value,
+                guestEmail: document.getElementById('guestEmail').value,
+                guestPhone: document.getElementById('guestPhone').value,
+                idType: document.getElementById('idType').value,
+                idNumber: document.getElementById('idNumber').value,
+                roomNumber: document.getElementById('roomNumber').value,
+                bookingType: document.getElementById('bookingType').value,
+                checkInDate: document.getElementById('checkInDate').value,
+                checkOutDate: document.getElementById('checkOutDate').value,
+                numGuests: document.getElementById('numGuests').value,
+                status: document.getElementById('bookingStatus').value,
+                paymentMethod: document.getElementById('paymentMethod').value,
+                paymentStatus: document.getElementById('paymentStatus').value,
+                discount: document.getElementById('discount').value,
+                depositAmount: document.getElementById('depositAmount').value,
+                specialRequests: document.getElementById('specialRequests').value,
+                internalNotes: document.getElementById('internalNotes').value,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            // Add the new booking
+            bookings.push(booking);
+
+            saveBookings(bookings);
+            renderBookings(bookings);
+            hideModal();
+        }
+
+        (function removeDuplicateInvoices() {
+            let invoices = JSON.parse(localStorage.getItem('hotelInvoices')) || [];
+            const unique = [];
+            const seen = new Set();
+            for (const inv of invoices) {
+                if (!seen.has(inv.id)) {
+                    unique.push(inv);
+                    seen.add(inv.id);
+                }
+            }
+            localStorage.setItem('hotelInvoices', JSON.stringify(unique));
+            alert('Duplicate invoices removed! Refresh your billing page.');
+        })();
+
+        function usdToInr(usd) {
+            const conversionRate = 83; // 1 USD = 83 INR (update as needed)
+            return usd * conversionRate;
+        }
+
+        function logout() {
+            localStorage.removeItem('isAuthenticated');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+
+</html>

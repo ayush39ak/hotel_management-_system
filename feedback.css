@@ -1,0 +1,410 @@
+
+/* Custom styles for Feedback page */
+
+/* Summary cards styling */
+.summary-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #e5e7eb;
+}
+
+/* Rating distribution styling */
+.rating-distribution {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.rating-distribution h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.rating-bar {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.rating-bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.rating-5 { background-color: #10b981; }
+.rating-4 { background-color: #3b82f6; }
+.rating-3 { background-color: #f59e0b; }
+.rating-2 { background-color: #f97316; }
+.rating-1 { background-color: #ef4444; }
+
+/* Feedback card styling */
+.feedback-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.feedback-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #e5e7eb;
+}
+
+/* Status badges */
+.status-new {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-responded {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-resolved {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+/* Star rating styling */
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+}
+
+.star {
+    width: 1rem;
+    height: 1rem;
+    fill: currentColor;
+}
+
+.star.filled {
+    color: #fbbf24;
+}
+
+.star.empty {
+    color: #d1d5db;
+}
+
+/* Response styling */
+.response-section {
+    background-color: #f9fafb;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    border-left: 3px solid #3b82f6;
+}
+
+.response-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.response-author {
+    font-weight: 600;
+    color: #374151;
+}
+
+.response-date {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Modal animations */
+.modal-enter {
+    animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Form styling */
+.form-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+/* Button animations */
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Filter section styling */
+.filter-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Export button styling */
+.export-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .rating-distribution .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rating-distribution .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .feedback-card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .rating-distribution .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Form validation */
+.form-input.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Success notification */
+.success-notification {
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Feedback sentiment indicators */
+.sentiment-positive {
+    border-left-color: #10b981;
+}
+
+.sentiment-neutral {
+    border-left-color: #f59e0b;
+}
+
+.sentiment-negative {
+    border-left-color: #ef4444;
+}
+
+/* Guest information styling */
+.guest-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.guest-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Rating number styling */
+.rating-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fbbf24;
+}
+
+/* Feedback date styling */
+.feedback-date {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* Response form styling */
+.response-form {
+    background-color: #f9fafb;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.response-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .bg-white {
+        background: white !important;
+        box-shadow: none !important;
+    }
+    
+    .feedback-card {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+        border: 1px solid #000 !important;
+    }
+}
+
+/* Feedback search highlighting */
+.search-highlight {
+    background-color: #fef3c7;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+/* Rating animation */
+.rating-animation {
+    animation: ratingPulse 0.6s ease-out;
+}
+
+@keyframes ratingPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Feedback priority indicators */
+.priority-high {
+    border-left: 4px solid #ef4444;
+}
+
+.priority-medium {
+    border-left: 4px solid #f59e0b;
+}
+
+.priority-low {
+    border-left: 4px solid #10b981;
+}
+
+/* Response status indicators */
+.response-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-new-indicator {
+    background-color: #3b82f6;
+}
+
+.status-responded-indicator {
+    background-color: #f59e0b;
+}
+
+.status-resolved-indicator {
+    background-color: #10b981;
+} 

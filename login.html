@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Hotel Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <link rel="stylesheet" href="login.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      /* Background image */
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .bg-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(34, 197, 94, 0.25); /* green overlay, adjust as needed */
+      z-index: 0;
+      pointer-events: none;
+    }
+    .login-box {
+      background: rgba(255,255,255,0.95);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      padding: 2.5rem 2rem 2rem 2rem;
+      transition: box-shadow 0.2s;
+      position: relative;
+      z-index: 1;
+    }
+    .login-box:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13);
+    }
+    .login-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #fff;
+      margin: 0 auto 1.5rem auto;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.10);
+    }
+    input:focus, button:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+    }
+    #loginError {
+      animation: shake 0.2s 2;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-4px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="bg-overlay"></div>
+  <div class="login-box w-full max-w-sm">
+    <div class="login-logo">
+      <span>🏨</span>
+    </div>
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">Hotel Admin Login</h2>
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 mb-1">Username</label>
+        <input type="text" id="username" class="w-full border border-gray-300 rounded-md px-3 py-2" required>
+      </div>
+      <div>
+        <label class="block text-gray-700 mb-1">Password</label>
+        <input type="password" id="password" class="w-full border border-gray-300 rounded-md px-3 py-2" required>
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 font-semibold transition">Login</button>
+    </form>
+    <p id="loginError" class="text-red-600 text-sm mt-4 hidden text-center"></p>
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      // Simple hardcoded check (replace with real auth in production)
+      if (username === 'admin' && password === 'admin123') {
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('loginError').textContent = 'Invalid username or password';
+        document.getElementById('loginError').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
