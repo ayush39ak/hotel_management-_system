@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Cleanup - Hotel Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-6 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Data Cleanup Tool</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Remove John Doe and Alice Smith</h2>
+            <p class="text-gray-600 mb-4">This will remove all records for John Doe and Alice Smith from all modules in the system.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <button onclick="removeJohnDoeAndAliceSmith()" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700">
+                    Remove John Doe & Alice Smith
+                </button>
+                <button onclick="viewCurrentData()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                    View Current Data
+                </button>
+            </div>
+            
+            <div id="results" class="mt-4"></div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Other Cleanup Options</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="clearAllData()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                    Clear All Data
+                </button>
+                <button onclick="generateFreshSampleData()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                    Generate Fresh Sample Data
+                </button>
+                <a href="index.html" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 text-center">
+                    Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function removeJohnDoeAndAliceSmith() {
+            if (!confirm('Are you sure you want to remove all records for John Doe and Alice Smith? This action cannot be undone.')) {
+                return;
+            }
+
+            const results = [];
+            let removedCount = 0;
+
+            // Clean up Check-ins
+            try {
+                const checkins = JSON.parse(localStorage.getItem('checkins') || '[]');
+                const originalCheckinsLength = checkins.length;
+                const filteredCheckins = checkins.filter(checkin => 
+                    checkin.guestName !== 'John Doe' && checkin.guestName !== 'Alice Smith'
+                );
+                localStorage.setItem('checkins', JSON.stringify(filteredCheckins));
+                const removedCheckins = originalCheckinsLength - filteredCheckins.length;
+                if (removedCheckins > 0) {
+                    results.push(`Removed ${removedCheckins} check-in records`);
+                    removedCount += removedCheckins;
+                }
+            } catch (error) {
+                results.push('Error cleaning check-ins: ' + error.message);
+            }
+
+            // Clean up Check-outs
+            try {
+                const checkouts = JSON.parse(localStorage.getItem('checkouts') || '[]');
+                const originalCheckoutsLength = checkouts.length;
+                const filteredCheckouts = checkouts.filter(checkout => 
+                    checkout.guestName !== 'John Doe' && checkout.guestName !== 'Alice Smith'
+                );
+                localStorage.setItem('checkouts', JSON.stringify(filteredCheckouts));
+                const removedCheckouts = originalCheckoutsLength - filteredCheckouts.length;
+                if (removedCheckouts > 0) {
+                    results.push(`Removed ${removedCheckouts} check-out records`);
+                    removedCount += removedCheckouts;
+                }
+            } catch (error) {
+                results.push('Error cleaning check-outs: ' + error.message);
+            }
+
+            // Clean up Customers
+            try {
+                const customers = JSON.parse(localStorage.getItem('hotelCustomers') || '[]');
+                const originalCustomersLength = customers.length;
+                const filteredCustomers = customers.filter(customer => 
+                    customer.name !== 'John Doe' && customer.name !== 'Alice Smith'
+                );
+                localStorage.setItem('hotelCustomers', JSON.stringify(filteredCustomers));
+                const removedCustomers = originalCustomersLength - filteredCustomers.length;
+                if (removedCustomers > 0) {
+                    results.push(`Removed ${removedCustomers} customer records`);
+                    removedCount += removedCustomers;
+                }
+            } catch (error) {
+                results.push('Error cleaning customers: ' + error.message);
+            }
+
+            // Clean up Billing/Invoices
+            try {
+                const invoices = JSON.parse(localStorage.getItem('hotelInvoices') || '[]');
+                const originalInvoicesLength = invoices.length;
+                const filteredInvoices = invoices.filter(invoice => 
+                    invoice.guestName !== 'John Doe' && invoice.guestName !== 'Alice Smith'
+                );
+                localStorage.setItem('hotelInvoices', JSON.stringify(filteredInvoices));
+                const removedInvoices = originalInvoicesLength - filteredInvoices.length;
+                if (removedInvoices > 0) {
+                    results.push(`Removed ${removedInvoices} billing records`);
+                    removedCount += removedInvoices;
+                }
+            } catch (error) {
+                results.push('Error cleaning billing: ' + error.message);
+            }
+
+            // Clean up Bookings
+            try {
+                const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                const originalBookingsLength = bookings.length;
+                const filteredBookings = bookings.filter(booking => 
+                    booking.guestName !== 'John Doe' && booking.guestName !== 'Alice Smith'
+                );
+                localStorage.setItem('bookings', JSON.stringify(filteredBookings));
+                const removedBookings = originalBookingsLength - filteredBookings.length;
+                if (removedBookings > 0) {
+                    results.push(`Removed ${removedBookings} booking records`);
+                    removedCount += removedBookings;
+                }
+            } catch (error) {
+                results.push('Error cleaning bookings: ' + error.message);
+            }
+
+            // Clean up Feedback
+            try {
+                const feedback = JSON.parse(localStorage.getItem('hotelFeedback') || '[]');
+                const originalFeedbackLength = feedback.length;
+                const filteredFeedback = feedback.filter(item => 
+                    item.guestName !== 'John Doe' && item.guestName !== 'Alice Smith'
+                );
+                localStorage.setItem('hotelFeedback', JSON.stringify(filteredFeedback));
+                const removedFeedback = originalFeedbackLength - filteredFeedback.length;
+                if (removedFeedback > 0) {
+                    results.push(`Removed ${removedFeedback} feedback records`);
+                    removedCount += removedFeedback;
+                }
+            } catch (error) {
+                results.push('Error cleaning feedback: ' + error.message);
+            }
+
+            // Display results
+            const resultsDiv = document.getElementById('results');
+            if (removedCount > 0) {
+                resultsDiv.innerHTML = `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                        <strong>Success!</strong> Removed ${removedCount} total records for John Doe and Alice Smith.
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded">
+                        <h3 class="font-semibold mb-2">Details:</h3>
+                        <ul class="list-disc list-inside space-y-1">
+                            ${results.map(result => `<li>${result}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML = `
+                    <div class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded">
+                        No records found for John Doe or Alice Smith to remove.
+                    </div>
+                `;
+            }
+        }
+
+        function viewCurrentData() {
+            const resultsDiv = document.getElementById('results');
+            let summary = '<div class="bg-gray-100 p-4 rounded"><h3 class="font-semibold mb-2">Current Data Summary:</h3><ul class="list-disc list-inside space-y-1">';
+            
+            // Check each module
+            const modules = [
+                { name: 'Check-ins', key: 'checkins' },
+                { name: 'Check-outs', key: 'checkouts' },
+                { name: 'Customers', key: 'hotelCustomers' },
+                { name: 'Billing', key: 'hotelInvoices' },
+                { name: 'Bookings', key: 'bookings' },
+                { name: 'Feedback', key: 'hotelFeedback' },
+                { name: 'Rooms', key: 'hotelRooms' },
+                { name: 'Inventory', key: 'hotelInventory' }
+            ];
+
+            modules.forEach(module => {
+                try {
+                    const data = JSON.parse(localStorage.getItem(module.key) || '[]');
+                    const johnDoeCount = data.filter(item => 
+                        (item.guestName === 'John Doe' || item.name === 'John Doe')
+                    ).length;
+                    const aliceSmithCount = data.filter(item => 
+                        (item.guestName === 'Alice Smith' || item.name === 'Alice Smith')
+                    ).length;
+                    
+                    if (johnDoeCount > 0 || aliceSmithCount > 0) {
+                        summary += `<li><strong>${module.name}:</strong> John Doe (${johnDoeCount}), Alice Smith (${aliceSmithCount})</li>`;
+                    }
+                } catch (error) {
+                    summary += `<li><strong>${module.name}:</strong> Error reading data</li>`;
+                }
+            });
+
+            summary += '</ul></div>';
+            resultsDiv.innerHTML = summary;
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear ALL data from the system? This action cannot be undone.')) {
+                localStorage.clear();
+                document.getElementById('results').innerHTML = `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        All data has been cleared successfully.
+                    </div>
+                `;
+            }
+        }
+
+        function generateFreshSampleData() {
+            if (confirm('This will generate fresh sample data. Any existing data will be replaced. Continue?')) {
+                // Generate fresh sample data without John Doe and Alice Smith
+                const freshData = {
+                    rooms: [
+                        { id: 1, roomNumber: '101', floor: 1, type: 'single', price: 80, status: 'available', description: 'Comfortable single room' },
+                        { id: 2, roomNumber: '102', floor: 1, type: 'double', price: 120, status: 'occupied', description: 'Spacious double room' },
+                        { id: 3, roomNumber: '201', floor: 2, type: 'suite', price: 200, status: 'available', description: 'Luxury suite' }
+                    ],
+                    checkins: [
+                        { id: 1, guestName: 'Mike Johnson', roomNumber: '102', checkInDate: '2024-01-15', checkOutDate: '2024-01-17', status: 'checked-in' },
+                        { id: 2, guestName: 'Sarah Wilson', roomNumber: '201', checkInDate: '2024-01-16', checkOutDate: '2024-01-19', status: 'checked-in' }
+                    ],
+                    checkouts: [
+                        { id: 1, guestName: 'Mike Johnson', roomNumber: '102', checkOutDate: '2024-01-17', amount: 240, status: 'completed' }
+                    ],
+                    customers: [
+                        { id: 1, name: 'Mike Johnson', email: 'mike@example.com', phone: '123-456-7890', address: '123 Main St' },
+                        { id: 2, name: 'Sarah Wilson', email: 'sarah@example.com', phone: '098-765-4321', address: '456 Oak Ave' }
+                    ],
+                    billing: [
+                        { id: 1, guestName: 'Mike Johnson', roomNumber: '102', amount: 240, dueDate: '2024-01-17', status: 'paid' }
+                    ],
+                    inventory: [
+                        { id: 1, name: 'Bed Sheets', category: 'linens', quantity: 50, unitPrice: 25.00, minStock: 10 },
+                        { id: 2, name: 'Towels', category: 'linens', quantity: 75, unitPrice: 15.00, minStock: 20 }
+                    ],
+                    feedback: [
+                        { id: 1, guestName: 'Mike Johnson', rating: 5, comment: 'Excellent service!', date: '2024-01-15', status: 'new' }
+                    ]
+                };
+
+                // Save to localStorage
+                localStorage.setItem('hotelRooms', JSON.stringify(freshData.rooms));
+                localStorage.setItem('checkins', JSON.stringify(freshData.checkins));
+                localStorage.setItem('checkouts', JSON.stringify(freshData.checkouts));
+                localStorage.setItem('hotelCustomers', JSON.stringify(freshData.customers));
+                localStorage.setItem('hotelInvoices', JSON.stringify(freshData.billing));
+                localStorage.setItem('hotelInventory', JSON.stringify(freshData.inventory));
+                localStorage.setItem('hotelFeedback', JSON.stringify(freshData.feedback));
+
+                document.getElementById('results').innerHTML = `
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        Fresh sample data generated successfully! (No John Doe or Alice Smith records)
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100">
     <!-- Navigation Header -->
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center space-x-4">
@@ -23,32 +23,34 @@
                     <a href="rooms.html" class="text-gray-600 hover:text-gray-900">Rooms</a>
                     <a href="bookings.html" class="text-blue-600 font-medium">Bookings</a>
                     <a href="checkin.html" class="text-gray-600 hover:text-gray-900">Check-In</a>
+                    <a href="checkout.html" class="text-gray-600 hover:text-gray-900">Check-Out</a>
                     <a href="customers.html" class="text-gray-600 hover:text-gray-900">Customers</a>
                     <a href="billing.html" class="text-gray-600 hover:text-gray-900">Billing</a>
                     <a href="inventory.html" class="text-gray-600 hover:text-gray-900">Inventory</a>
                     <a href="feedback.html" class="text-gray-600 hover:text-gray-900">Feedback</a>
                 </div>
+              
             </div>
         </div>
     </nav>
 
-    <div class="container mx-auto px-6 py-8">
+    <div class="container mx-auto px-6 py-8 mt-24">
         <div class="flex justify-between items-center mb-8">
             <h1 class="text-3xl font-bold text-gray-900">Bookings Management</h1>
             <div class="flex space-x-4">
-                <button id="generateSampleCheckinBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center">
+                <button id="generateSampleCheckinBtn" class="bg-purple-600 text-black px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
                     Generate Sample Check-in Data
                 </button>
-                <button id="syncCheckinBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
+                <button id="syncCheckinBtn" class="bg-blue-600 text-black px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                     </svg>
                     Sync Check-in Data
                 </button>
-                <button id="addBookingBtn" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                <button id="addBookingBtn" class="bg-green-600 text-black px-4 py-2 rounded-lg hover:bg-green-700">
                     New Booking
                 </button>
                 <button id="clearBookingsBtn" style="margin-bottom: 1em;">Clear All Bookings</button>
@@ -470,7 +472,7 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                         <div>
                             <span class="text-gray-600">Base Price:</span>
-                            <span id="basePrice" class="font-medium ml-2">$0</span>
+                            <span id="basePrice" class="font-medium ml-2">₹0</span>
                         </div>
                         <div>
                             <span class="text-gray-600">Nights:</span>
@@ -478,20 +480,20 @@
                         </div>
                         <div>
                             <span class="text-gray-600">Discount:</span>
-                            <span id="discountAmount" class="font-medium ml-2">$0</span>
+                            <span id="discountAmount" class="font-medium ml-2">₹0</span>
                         </div>
                         <div>
                             <span class="text-gray-600">Services:</span>
-                            <span id="servicesAmount" class="font-medium ml-2">$0</span>
+                            <span id="servicesAmount" class="font-medium ml-2">₹0</span>
                         </div>
                     </div>
                     <div class="border-t pt-3">
                         <div class="flex justify-between items-center">
                             <span class="text-lg font-medium text-gray-900">Total Amount:</span>
-                            <span id="totalAmount" class="text-2xl font-bold text-green-600">$0</span>
+                            <span id="totalAmount" class="text-2xl font-bold text-green-600">₹0</span>
                         </div>
                         <div class="text-sm text-gray-500 mt-1">
-                            <span id="totalBreakdown">Base: $0 | Discount: $0 | Services: $0</span>
+                            <span id="totalBreakdown">Base: ₹0 | Discount: ₹0 | Services: ₹0</span>
                         </div>
                     </div>
                 </div>
@@ -536,5 +538,16 @@
     </div>
 
     <script src="bookings.js"></script>
+    <script>
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
+    </script>
+    <script>
+      document.getElementById('logoutBtn')?.addEventListener('click', function() {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'login.html';
+      });
+    </script>
 </body>
 </html>

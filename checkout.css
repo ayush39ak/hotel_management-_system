@@ -1,0 +1,298 @@
+
+/* Check-out Management Styles */
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Navigation Styles */
+nav {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+nav a {
+    transition: all 0.2s ease;
+}
+
+nav a:hover {
+    transform: translateY(-1px);
+}
+
+/* Card Styles */
+.room-card, .guest-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.room-card:hover, .guest-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.room-card.selected, .guest-card.selected {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+/* Status Badges */
+.status-available {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-occupied {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-checked-out {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.status-cleaning {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+/* Room Type Badges */
+.room-type-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.type-single {
+    background-color: #e0e7ff;
+    color: #3730a3;
+}
+
+.type-double {
+    background-color: #ecfdf5;
+    color: #065f46;
+}
+
+.type-suite {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.type-deluxe {
+    background-color: #fce7f3;
+    color: #be185d;
+}
+
+/* Form Styles */
+input, select, textarea {
+    transition: border-color 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Button Styles */
+button {
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Modal Styles */
+.modal-enter {
+    animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Guest Card Styles */
+.guest-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+}
+
+.guest-card:hover {
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+/* Billing Summary Styles */
+.billing-summary {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .flex {
+        flex-direction: column;
+    }
+    
+    .flex > * {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification.success {
+    background-color: #10b981;
+}
+
+.notification.error {
+    background-color: #ef4444;
+}
+
+.notification.warning {
+    background-color: #f59e0b;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Print Styles */
+@media print {
+    nav, button, .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+    
+    .container {
+        max-width: none !important;
+        padding: 0 !important;
+    }
+    
+    .bg-white {
+        background: white !important;
+        box-shadow: none !important;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Focus Styles for Accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .bg-white {
+        background-color: #1f2937;
+        color: #f9fafb;
+    }
+    
+    .text-gray-900 {
+        color: #f9fafb;
+    }
+    
+    .text-gray-700 {
+        color: #d1d5db;
+    }
+    
+    .border-gray-300 {
+        border-color: #4b5563;
+    }
+    
+    .bg-gray-100 {
+        background-color: #111827;
+    }
+    
+    .bg-gray-50 {
+        background-color: #374151;
+    }
+} 

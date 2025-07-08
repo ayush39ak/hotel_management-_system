@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Check-Out - Hotel Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800 font-semibold">
+                        ← Back to Dashboard
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <h2 class="text-xl font-semibold text-gray-900">Hotel Admin</h2>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="rooms.html" class="text-gray-600 hover:text-gray-900">Rooms</a>
+                    <a href="bookings.html" class="text-gray-600 hover:text-gray-900">Bookings</a>
+                    <a href="checkin.html" class="text-gray-600 hover:text-gray-900">Check-In</a>
+                    <a href="checkout.html" class="text-blue-600 font-medium">Check-Out</a>
+                    <a href="customers.html" class="text-gray-600 hover:text-gray-900">Customers</a>
+                    <a href="billing.html" class="text-gray-600 hover:text-gray-900">Billing</a>
+                    <a href="inventory.html" class="text-gray-600 hover:text-gray-900">Inventory</a>
+                    <a href="feedback.html" class="text-gray-600 hover:text-gray-900">Feedback</a>
+                </div>
+               
+            </div>
+        </div>
+    </nav>
+<h1>0</h1>
+    <div class="container mx-auto px-6 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <h0 class="text-3xl font-bold text-gray-900">Guest Check-Out</h0>
+            <button id="backBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
+                Back to Dashboard
+            </button>
+        </div>
+
+        <!-- Guest Search Section -->
+         
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h1 class="text-xl font-semibold text-gray-900 mb-4">Find Guest for Check-Out</h1>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search by Guest Name</label>
+                    <input type="text" id="guestSearch" placeholder="Enter guest name..." class="w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search by Room Number</label>
+                    <input type="text" id="roomSearch" placeholder="Enter room number..." class="w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search by Check-in ID</label>
+                    <input type="text" id="checkinIdSearch" placeholder="Enter check-in ID..." class="w-full border border-gray-300 rounded-md px-3 py-2">
+                </div>
+                <div class="flex items-end">
+                    <button id="searchGuests" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Search Guests
+                    </button>
+                   
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div id="searchResults" class="bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Found Guests</h2>
+            <div id="guestsList" class="space-y-3">
+                <!-- Search results will be dynamically generated here -->
+            </div>
+        </div>
+
+        <!-- Check-out Form -->
+        <div id="checkoutForm" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Check-Out Information</h2>
+            
+            <!-- Guest Information Display -->
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2">Guest Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700">Guest Name</span>
+                        <span id="displayGuestName" class="text-gray-900 font-medium">-</span>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700">Room Number</span>
+                        <span id="displayRoomNumber" class="text-gray-900 font-medium">-</span>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700">Check-in Date</span>
+                        <span id="displayCheckInDate" class="text-gray-900">-</span>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700">Check-out Date</span>
+                        <span id="displayCheckOutDate" class="text-gray-900">-</span>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700">Number of Nights</span>
+                        <span id="displayNights" class="text-gray-900">-</span>
+                    </div>
+                    <div>
+                        <span class="block text-sm font-medium text-gray-700">Original Total</span>
+                        <span id="displayOriginalTotal" class="text-gray-900 font-medium">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Charges Section -->
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2">Additional Charges</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Late Check-out Fee</label>
+                        <input type="number" id="lateCheckoutFee" min="0" step="0.01" value="0" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Room Service Charges</label>
+                        <input type="number" id="roomServiceCharges" min="0" step="0.01" value="0" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mini Bar Charges</label>
+                        <input type="number" id="miniBarCharges" min="0" step="0.01" value="0" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Damage Charges</label>
+                        <input type="number" id="damageCharges" min="0" step="0.01" value="0" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                        <textarea id="additionalNotes" rows="3" placeholder="Enter any additional notes..." class="w-full border border-gray-300 rounded-md px-3 py-2"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Billing Summary -->
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2">Final Billing Summary</h3>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex justify-between">
+                            <span>Original Room Charges:</span>
+                            <span id="originalCharges">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Late Check-out Fee:</span>
+                            <span id="lateCheckoutDisplay">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Room Service:</span>
+                            <span id="roomServiceDisplay">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Mini Bar:</span>
+                            <span id="miniBarDisplay">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Damage Charges:</span>
+                            <span id="damageDisplay">₹0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-lg border-t pt-2">
+                            <span>Total Amount:</span>
+                            <span id="finalTotal">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="mb-6">
+                <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2">Payment Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
+                        <select id="paymentMethod" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option value="credit_card">Credit Card</option>
+                            <option value="debit_card">Debit Card</option>
+                            <option value="cash">Cash</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                            <option value="online">Online Payment</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
+                        <select id="paymentStatus" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                            <option value="paid">Paid</option>
+                            <option value="pending">Pending</option>
+                            <option value="partial">Partial Payment</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Check-out Actions -->
+            <div class="flex gap-4">
+                <button type="submit" id="processCheckout" class="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-medium">
+                    Process Check-Out
+                </button>
+                <button type="button" id="cancelCheckout" class="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- Check-out Summary -->
+        <div id="checkoutSummary" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Check-out Summary</h2>
+            <div id="summaryContent" class="space-y-4">
+                <!-- Summary content will be dynamically generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Check-out History Section-->
+    <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-900">Check-out History</h2>
+            <div class="flex gap-2">
+                <button onclick="checkoutManager.generateSampleCheckinData()" class="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700">
+                    Generate Check-in Data
+                </button>
+                <button onclick="checkoutManager.generateSampleData()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Generate Check-out Data
+                </button>
+                <button onclick="checkoutManager.renderCheckoutHistory()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Refresh
+                </button>
+            </div>
+        </div> 
+        
+         <div id="checkoutHistory">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Time</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Final Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checkoutHistoryTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Check-out history will be dynamically generated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+
+   
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Check-out Successful!</h3>
+            <p class="text-gray-600 mb-4">Guest has been successfully checked out.</p>
+            <div class="flex gap-3">
+                <button id="printReceipt" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Print Receipt
+                </button>
+                <button id="newCheckout" class="flex-1 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                    New Check-out
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="checkout.js"></script>
+    <script>
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
+    </script>
+    <script>
+      document.getElementById('logoutBtn')?.addEventListener('click', function() {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'login.html';
+      });
+    </script>
+</body>
+</html> 

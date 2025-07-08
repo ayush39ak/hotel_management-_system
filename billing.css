@@ -1,0 +1,368 @@
+
+/* Custom styles for Billing page */
+
+/* Summary cards styling */
+.summary-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #e5e7eb;
+}
+
+/* Status badges */
+.status-paid {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-overdue {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.status-cancelled {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+/* Invoice items styling */
+.invoice-item {
+    background-color: #f9fafb;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid #3b82f6;
+}
+
+.invoice-item:hover {
+    background-color: #f3f4f6;
+}
+
+/* Invoice summary styling */
+.invoice-summary {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.invoice-summary h3 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+/* Modal animations */
+.modal-enter {
+    animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Form styling */
+.form-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+/* Button animations */
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Table styling */
+.invoice-table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.invoice-table th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.invoice-table td {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.invoice-table tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Amount formatting */
+.amount-positive {
+    color: #059669;
+    font-weight: 600;
+}
+
+.amount-negative {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.amount-zero {
+    color: #6b7280;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .invoice-table {
+        font-size: 0.875rem;
+    }
+    
+    .invoice-table th,
+    .invoice-table td {
+        padding: 0.5rem;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Filter section styling */
+.filter-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Export button styling */
+.export-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    transition: all 0.3s ease;
+}
+
+.export-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Invoice details modal */
+.invoice-details {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.invoice-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+.invoice-details::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.invoice-details::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.invoice-details::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Form validation */
+.form-input.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Success notification */
+.success-notification {
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Invoice item actions */
+.item-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.remove-item {
+    color: #ef4444;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.remove-item:hover {
+    color: #dc2626;
+}
+
+/* Amount calculation */
+.amount-calc {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+}
+
+/* Due date styling */
+.due-date {
+    font-weight: 500;
+}
+
+.due-date.overdue {
+    color: #dc2626;
+}
+
+.due-date.today {
+    color: #f59e0b;
+}
+
+.due-date.future {
+    color: #059669;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .bg-white {
+        background: white !important;
+        box-shadow: none !important;
+    }
+    
+    .invoice-table {
+        border: 1px solid #000 !important;
+    }
+    
+    .invoice-table th,
+    .invoice-table td {
+        border: 1px solid #000 !important;
+        padding: 0.5rem !important;
+    }
+}
+
+/* Currency formatting */
+.currency {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+}
+
+.currency.positive {
+    color: #059669;
+}
+
+.currency.negative {
+    color: #dc2626;
+}
+
+/* Invoice status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.status-paid-indicator {
+    background-color: #10b981;
+}
+
+.status-pending-indicator {
+    background-color: #f59e0b;
+}
+
+.status-overdue-indicator {
+    background-color: #ef4444;
+}
+
+.status-cancelled-indicator {
+    background-color: #6b7280;
+} 

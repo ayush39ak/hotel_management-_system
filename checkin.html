@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Check-In - Hotel Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="checkin.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-blue-600 hover:text-blue-800 font-semibold">
+                        ← Back to Dashboard
+                    </a>
+                    <span class="text-gray-400">|</span>
+                    <h2 class="text-xl font-semibold text-gray-900">Hotel Management System</h2>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="rooms.html" class="text-gray-600 hover:text-gray-900">Rooms</a>
+                    <a href="bookings.html" class="text-gray-600 hover:text-gray-900">Bookings</a>
+                    <a href="checkin.html" class="text-blue-600 font-medium">Check-In</a>
+                    <a href="checkout.html" class="text-gray-600 hover:text-gray-900">Check-Out</a>
+                    <a href="customers.html" class="text-gray-600 hover:text-gray-900">Customers</a>
+                    <a href="billing.html" class="text-gray-600 hover:text-gray-900">Billing</a>
+                    <a href="inventory.html" class="text-gray-600 hover:text-gray-900">Inventory</a>
+                    <a href="feedback.html" class="text-gray-600 hover:text-gray-900">Feedback</a>
+                </div>
+               
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-6 py-8">
+    
+        <!-- Header Section -->
+        <div class="flex justify-between items-center mb-8">
+            
+            <div>
+                <h0>-</h0>
+                <h2></h2>
+                <h0 class="text-3xl font-bold text-gray-900">Guest Check-In</h0>
+                <p class="text-gray-600 mt-2">Process guest check-ins and manage room assignments</p>
+            </div>
+            <button id="backBtn" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                Back to Dashboard
+            </button>
+        </div>
+
+        <!-- Direct Check-in Section (Express) -->
+        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-yellow-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <h2 class="text-xl font-semibold text-yellow-900">Express Check-In</h2>
+                </div>
+                <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800 font-medium">FAST TRACK</span>
+            </div>
+            <p class="text-sm text-yellow-800 mb-4">Enter a booking ID to process check-in immediately without filling out the form manually.</p>
+            <div class="flex space-x-3">
+                <input type="text" id="directBookingId" placeholder="Enter booking ID (e.g., 1751241947883 or #1751241947883)" 
+                       class="flex-1 border border-yellow-300 rounded-md px-4 py-3 text-sm focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                <button id="directCheckinBtn" class="bg-yellow-600 text-white px-6 py-3 rounded-md hover:bg-yellow-700 text-sm font-medium transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                    Direct Check-in
+                </button>
+            </div>
+        </div>
+
+        <!-- Booking Search Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center space-x-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Find Booking</h2>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Quick Check-in Mode:</span>
+                        <span id="quickCheckinStatus" class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800 font-medium">Active</span>
+                    </div>
+                </div>
+                <button id="generateSampleBookingsBtn" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Generate Sample Bookings
+                </button>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-sm text-blue-800">
+                        <strong>Quick Check-in Available:</strong> Click the green "Check-in" button next to any eligible booking to process check-in instantly without filling out the form manually.
+                    </span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search by Guest Name</label>
+                    <input type="text" id="guestSearch" placeholder="Enter guest name..." 
+                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search by Booking ID</label>
+                    <input type="text" id="bookingIdSearch" placeholder="Enter booking ID (with or without #)..." 
+                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                           title="You can search with or without the # symbol. Example: 1751241947883 or #1751241947883">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Search by Room Number</label>
+                    <input type="text" id="roomSearch" placeholder="Enter room number..." 
+                           class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="flex items-end space-x-2">
+                    <button id="searchBookings" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                        Search Bookings
+                    </button>
+                    <button id="showAllBookings" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors">
+                        Show All
+                    </button>
+                    <button id="clearSearch" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors">
+                        Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Search Results -->
+        <div id="bookingSearchResults" class="bg-white rounded-lg shadow-md p-6 mb-6 hidden">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Found Bookings</h2>
+            <div id="searchResultsList" class="space-y-3">
+                <!-- Search results will be dynamically generated here -->
+            </div>
+        </div>
+
+        <!-- Available Rooms Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-900">Available Rooms</h2>
+                <div class="flex space-x-2">
+                    <select id="roomTypeFilter" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">All Types</option>
+                        <option value="single">Single</option>
+                        <option value="double">Double</option>
+                        <option value="suite">Suite</option>
+                        <option value="deluxe">Deluxe</option>
+                    </select>
+                    <select id="floorFilter" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">All Floors</option>
+                        <option value="1">Floor 1</option>
+                        <option value="2">Floor 2</option>
+                        <option value="3">Floor 3</option>
+                    </select>
+                    <select id="priceFilter" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">All Prices</option>
+                        <option value="0-100">₹0 - ₹100</option>
+                        <option value="100-200">₹100 - ₹200</option>
+                        <option value="200+">₹200+</option>
+                    </select>
+                </div>
+            </div>
+            <div id="availableRooms" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Room cards will be dynamically generated here -->
+            </div>
+        </div>
+
+        <!-- Check-in Form -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Manual Check-in Form</h2>
+            
+            <form id="checkinForm">
+                <!-- Guest Information Section -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        Guest Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                            <input type="text" id="firstName" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                            <input type="text" id="lastName" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                            <input type="email" id="email" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone *</label>
+                            <input type="tel" id="phone" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ID Type</label>
+                            <select id="idType" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="passport">Passport</option>
+                                <option value="drivers_license">Driver's License</option>
+                                <option value="national_id">National ID</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ID Number</label>
+                            <input type="text" id="idNumber" 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Details Section -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        Booking Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Check-in Date *</label>
+                            <input type="date" id="checkInDate" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Check-out Date *</label>
+                            <input type="date" id="checkOutDate" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Number of Guests *</label>
+                            <input type="number" id="numGuests" min="1" max="6" value="1" required 
+                                   class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
+                            <select id="paymentMethod" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="credit_card">Credit Card</option>
+                                <option value="debit_card">Debit Card</option>
+                                <option value="cash">Cash</option>
+                                <option value="bank_transfer">Bank Transfer</option>
+                                <option value="online">Online Payment</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Booking Information Display -->
+                <div id="advancedBookingInfo" class="mb-6 hidden">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Advanced Booking Information
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <span class="font-medium text-gray-700">Booking ID:</span>
+                                <span id="displayBookingId" class="ml-2 text-gray-900">-</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Booking Type:</span>
+                                <span id="displayBookingType" class="ml-2 text-gray-900">-</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Customer Status:</span>
+                                <span id="displayCustomerStatus" class="ml-2 text-gray-900">-</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Payment Status:</span>
+                                <span id="displayPaymentStatus" class="ml-2 text-gray-900">-</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Payment Method:</span>
+                                <span id="displayPaymentMethod" class="ml-2 text-gray-900">-</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Total Amount:</span>
+                                <span id="displayTotalAmount" class="ml-2 text-gray-900 font-semibold">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <span class="font-medium text-gray-700">Special Requests:</span>
+                                <div id="displaySpecialRequests" class="mt-1 text-gray-900 bg-white p-2 rounded border">-</div>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Internal Notes:</span>
+                                <div id="displayInternalNotes" class="mt-1 text-gray-900 bg-white p-2 rounded border">-</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Services and Preferences -->
+                        <div class="space-y-3">
+                            <div>
+                                <span class="font-medium text-gray-700">Selected Services:</span>
+                                <div id="displayServices" class="mt-1 flex flex-wrap gap-1"></div>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-700">Room Preferences:</span>
+                                <div id="displayPreferences" class="mt-1 flex flex-wrap gap-1"></div>
+                            </div>
+                        </div>
+
+                        <!-- Group/Recurring Booking Info -->
+                        <div id="advancedBookingDetails" class="mt-4 pt-4 border-t border-blue-200 hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div id="groupBookingInfo" class="hidden">
+                                    <span class="font-medium text-gray-700">Group Information:</span>
+                                    <div id="displayGroupInfo" class="mt-1 text-gray-900"></div>
+                                </div>
+                                <div id="recurringBookingInfo" class="hidden">
+                                    <span class="font-medium text-gray-700">Recurring Information:</span>
+                                    <div id="displayRecurringInfo" class="mt-1 text-gray-900"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Check-in Summary -->
+                <div id="checkinSummary" class="mb-6 hidden">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3 border-b pb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                        Check-in Summary
+                    </h3>
+                    <div id="summaryContent" class="bg-gray-50 p-4 rounded-lg">
+                        <!-- Summary content will be dynamically generated -->
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="resetFormBtn" class="bg-gray-500 text-white px-6 py-2 rounded-md hover:bg-gray-600 transition-colors">
+                        Reset Form
+                    </button>
+                    <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Complete Check-in
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Check-in History Section-->
+    <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold text-gray-900">Check-in History</h2>
+            <div class="flex gap-2">
+                <button onclick="checkinManager.generateSampleData()" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Generate Sample Data
+                </button>
+                <button onclick="checkinManager.syncCheckoutData()" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Sync Checkout Data
+                </button>
+                <button onclick="checkinManager.renderCheckinHistory()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                    </svg>
+                    Refresh
+                </button>
+            </div>
+        </div>
+
+      <!-- Summary Statistics -->
+        <div id="checkinSummary" class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-blue-600" id="totalCheckins">0</div>
+                <div class="text-sm text-blue-800">Total Check-ins</div>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-green-600" id="activeCheckins">0</div>
+                <div class="text-sm text-green-800">Currently Checked In</div>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-purple-600" id="completedCheckouts">0</div>
+                <div class="text-sm text-purple-800">Completed Check-outs</div>
+            </div>
+            <div class="bg-orange-50 p-4 rounded-lg">
+                <div class="text-2xl font-bold text-orange-600" id="totalRevenue">₹0</div>
+                <div class="text-sm text-orange-800">Total Revenue</div>
+            </div>
+        </div>
+        
+       <div id="checkinHistory">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guest Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Room</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-in Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Date</th>
+                           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check-out Info</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checkinHistoryTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Check-in history will be dynamically generated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2">Check-in Successful!</h3>
+            <p class="text-gray-600 mb-4">Guest has been successfully checked in.</p>
+            <div class="flex gap-3">
+                <button id="printReceipt" class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                    Print Receipt
+                </button>
+                <button id="newCheckin" class="flex-1 bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors">
+                    New Check-in
+                </button>
+            </div>
+        </div>
+    </div>
+
+ 
+
+    <script src="checkin.js"></script>
+    <script>
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+        window.location.href = 'login.html';
+      }
+    </script>
+    <script>
+      document.getElementById('logoutBtn')?.addEventListener('click', function() {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'login.html';
+      });
+    </script>
+</body>
+</html> 

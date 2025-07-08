@@ -1,0 +1,467 @@
+body {
+    background: linear-gradient(rgba(30, 41, 59, 0.5), rgba(30, 41, 59, 0.5)),
+                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* Ensure main content stands out on the background */
+.container, .bg-white, .rounded-lg, .shadow-md {
+    background-color: rgba(255,255,255,0.95) !important;
+    backdrop-filter: blur(2px);
+}
+
+/* Payment Status Badges */
+.payment-paid {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.payment-pending {
+    background-color: #e6c02b;
+    color: #92400e;
+}
+
+.payment-partial {
+    background-color: #0b5fcd;
+    color: #1e40af;
+}
+
+.payment-refunded {
+    background-color: #811a1a;
+    color: #991b1b;
+}
+
+/* Enhanced Status Badges */
+.status-confirmed {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-pending {
+    background-color: #b89f39;
+    color: #92400e;
+}
+
+.status-checked-in {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.status-checked-out {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.status-cancelled {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Table hover effects */
+tbody tr:hover {
+    background-color: #f9fafb;
+    transition: background-color 0.2s ease;
+}
+
+/* Modal animations */
+.modal-enter {
+    animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Form field focus states */
+.form-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Button hover effects */
+.btn-primary {
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table-responsive table {
+        min-width: 800px;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #3b82f6;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Filter section styling */
+.filter-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Status badges */
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Action buttons */
+.action-btn {
+    transition: all 0.2s ease;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form validation styles */
+.form-input.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Success message */
+.success-message {
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+/* Date picker customization */
+input[type="date"] {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* Select dropdown styling */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .print-only {
+        display: block !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .bg-white {
+        background: white !important;
+        box-shadow: none !important;
+    }
+}
+
+/* Form Enhancements */
+.form-section {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* Pricing Summary */
+.pricing-summary {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
+}
+
+/* Enhanced Hover Effects */
+.booking-row:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Advanced Booking Features */
+.recurring-booking {
+    background-color: #faf5ff;
+    border-left: 4px solid #8b5cf6;
+}
+
+.group-booking {
+    background-color: #eff6ff;
+    border-left: 4px solid #3b82f6;
+}
+
+.recurring-booking:hover {
+    background-color: #f3e8ff !important;
+}
+
+.group-booking:hover {
+    background-color: #dbeafe !important;
+}
+
+/* Advanced Options Sections */
+.advanced-options {
+    transition: all 0.3s ease;
+}
+
+.advanced-options.hidden {
+    display: none;
+}
+
+/* Service and Preference Checkboxes */
+.service-checkbox, .preference-checkbox {
+    transition: all 0.2s ease;
+}
+
+.service-checkbox:checked + span,
+.preference-checkbox:checked + span {
+    color: #059669;
+    font-weight: 500;
+}
+
+/* Booking Type Badges */
+.booking-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.booking-type-badge.recurring::before {
+    content: "🔄";
+    font-size: 0.75rem;
+}
+
+.booking-type-badge.group::before {
+    content: "👥";
+    font-size: 0.75rem;
+}
+
+.booking-type-badge.vip::before {
+    content: "⭐";
+    font-size: 0.75rem;
+}
+
+.booking-type-badge.corporate::before {
+    content: "🏢";
+    font-size: 0.75rem;
+}
+
+/* Service Indicators */
+.service-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: #059669;
+    background-color: #d1fae5;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    margin: 0.125rem;
+}
+
+/* Preference Indicators */
+.preference-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: #2563eb;
+    background-color: #dbeafe;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    margin: 0.125rem;
+}
+
+/* Enhanced Pricing Display */
+.pricing-breakdown {
+    font-family: 'Courier New', monospace;
+    background-color: #f8fafc;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #e2e8f0;
+}
+
+/* Recurring Booking Calendar */
+.recurring-calendar {
+    background: linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%);
+    border: 1px solid #c084fc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+/* Group Booking Summary */
+.group-summary {
+    background: linear-gradient(135deg, #eff6ff 0%, #bfdbfe 100%);
+    border: 1px solid #60a5fa;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+/* Service Cost Breakdown */
+.service-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    background-color: #f1f5f9;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+
+/* Enhanced Modal */
+.advanced-modal {
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.advanced-modal .modal-content {
+    padding: 2rem;
+}
+
+/* Responsive Design for Advanced Features */
+@media (max-width: 768px) {
+    .service-breakdown {
+        grid-template-columns: 1fr;
+    }
+    
+    .advanced-modal {
+        max-width: 95vw;
+        margin: 1rem;
+    }
+    
+    .form-section {
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Animation for Advanced Options */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.advanced-options:not(.hidden) {
+    animation: slideDown 0.3s ease-out;
+}
+
+/* Enhanced Status Indicators */
+.status-waitlist {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-no-show {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Booking Summary Enhancements */
+.booking-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.booking-summary-item:last-child {
+    border-bottom: none;
+}
+
+.booking-summary-label {
+    font-weight: 500;
+    color: #374151;
+}
+
+.booking-summary-value {
+    color: #6b7280;
+    text-align: right;
+} 
